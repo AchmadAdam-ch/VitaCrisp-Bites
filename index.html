@@ -46,8 +46,38 @@
             background-color: var(--text-main); color: white !important;
             padding: 0.6rem 1.5rem; border-radius: 30px; border: none;
             cursor: pointer; transition: transform 0.3s, background-color 0.3s;
+            text-decoration: none; font-family: 'Poppins', sans-serif;
         }
         .btn-shop:hover { background-color: var(--green-accent); transform: translateY(-2px); }
+
+        /* Tambahan Style untuk Harga & Tombol WA */
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 1rem 0;
+        }
+        
+        .btn-wa {
+            background-color: #25D366; /* Warna khas WhatsApp */
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 1rem;
+            text-decoration: none;
+        }
+        
+        .btn-wa:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
 
         /* Hero Section */
         .hero { display: flex; align-items: center; justify-content: space-between; padding: 5rem 5%; min-height: 80vh; }
@@ -86,7 +116,7 @@
         .product-card:hover .product-img-wrapper img { transform: scale(1.1); }
         .product-info { padding: 2rem; text-align: center; }
         .product-info h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .product-info p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .product-info p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 0.5rem; }
         
         .theme-green .product-img-wrapper { background-color: #EAF0EA; }
         .theme-green h3 { color: var(--green-accent); }
@@ -159,7 +189,7 @@
         <div class="nav-links">
             <a href="#about">Cerita Kami</a>
             <a href="#products">Varian Rasa</a>
-            <a href="#" class="btn-shop">Pesan Sekarang</a>
+            <a href="#products" class="btn-shop">Pesan Sekarang</a>
         </div>
     </nav>
 
@@ -213,6 +243,7 @@
                 <div class="product-info">
                     <h3>Original Savory Bites</h3>
                     <p>Cita rasa klasik yang memadukan gandum utuh, serat oat, dan sentuhan garam laut.</p>
+                    <div class="product-price">Rp 7.000</div>
                     <button class="btn-shop" onclick="openModal('modal-original')">Lihat Detail & Gizi</button>
                 </div>
             </div>
@@ -224,6 +255,7 @@
                 <div class="product-info">
                     <h3>Dark Chocolate & Sea Salt</h3>
                     <p>Kombinasi mewah cokelat gelap premium, almond panggang yang renyah, ditaburi garam laut.</p>
+                    <div class="product-price">Rp 7.000</div>
                     <button class="btn-shop" style="background-color: var(--brown-accent);" onclick="openModal('modal-chocolate')">Lihat Detail & Gizi</button>
                 </div>
             </div>
@@ -233,7 +265,7 @@
     <footer data-aos="fade-in">
         <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">VitaCrisp Bites</h2>
         <p>VitsFoods Co., Ltd., Jakarta, Indonesia.</p>
-        <p style="margin-top: 2rem;">&copy; 2024 VitaCrisp. All rights reserved. Sustainable Snacking.</p>
+        <p style="margin-top: 2rem;">&copy; 2026 VitaCrisp. All rights reserved. Sustainable Snacking.</p>
     </footer>
 
     <div class="modal-overlay" id="modal-original">
@@ -280,6 +312,8 @@
                     </tr>
                 </table>
                 <p><strong>Bahan Baku Utama:</strong><br>Tepung Gandum Utuh, Serat Oat, Minyak Biji Tekan Ekspeler, Gula Tebu Organik, Garam Laut, Pengembang Alami.</p>
+                
+                <button class="btn-wa" onclick="orderWhatsApp('Original Savory Bites')">🛒 Pesan Sekarang (Rp 7.000)</button>
             </div>
         </div>
     </div>
@@ -328,6 +362,8 @@
                     </tr>
                 </table>
                 <p><strong>Bahan Baku Utama:</strong><br>Massa Kakao, Gula, Mentega Kakao, Almond Panggang (20%), Pengemulsi Nabati, Garam Laut (1%).</p>
+                
+                <button class="btn-wa" onclick="orderWhatsApp('Dark Chocolate & Sea Salt')">🛒 Pesan Sekarang (Rp 7.000)</button>
             </div>
         </div>
     </div>
@@ -336,16 +372,16 @@
     <script>
         // Initialize Animations
         AOS.init({
-            duration: 1000, // Durasi animasi 1 detik
-            once: true, // Animasi hanya berjalan sekali saat di-scroll
-            offset: 100 // Jarak trigger animasi dari bawah layar
+            duration: 1000, 
+            once: true, 
+            offset: 100 
         });
 
         // Script for Handling Modals
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Mencegah background bisa di-scroll saat pop-up terbuka
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeModal() {
@@ -353,10 +389,9 @@
             modals.forEach(modal => {
                 modal.classList.remove('active');
             });
-            document.body.style.overflow = 'auto'; // Mengembalikan scroll body
+            document.body.style.overflow = 'auto'; 
         }
 
-        // Menutup modal jika area gelap di luar box diklik
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', function(event) {
                 if(event.target === this) {
@@ -364,6 +399,21 @@
                 }
             });
         });
+
+        // Script untuk Order via WhatsApp
+        function orderWhatsApp(varian) {
+            // Ganti angka di bawah dengan nomor WhatsApp penjual (gunakan format 62 tanpa angka 0 di depan)
+            const nomorWA = "628980500898"; 
+            
+            // Format pesan yang akan dikirim
+            const pesan = `Halo VitaCrisp! Saya tertarik untuk memesan produk ini:\n\n*Varian:* ${varian}\n*Harga:* Rp 7.000\n\nApakah stoknya masih tersedia?`;
+            
+            // Membuat link API WhatsApp
+            const linkWA = `https://api.whatsapp.com/send?phone=${nomorWA}&text=${encodeURIComponent(pesan)}`;
+            
+            // Buka di tab baru
+            window.open(linkWA, '_blank');
+        }
     </script>
 </body>
 </html>
